@@ -40,7 +40,7 @@ class QuoteGenerator extends StatefulWidget {
 
 class _QuoteGeneratorState extends State<QuoteGenerator> {
   final String quoteURL = "https://api.adviceslip.com/advice";
-  String quote = 'Random Quote';
+  String quote = 'Success loves speed';
 
   generateQuote() async {
     // var res = await http.get(Uri.parse(quoteURL));
