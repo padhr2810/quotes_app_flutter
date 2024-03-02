@@ -101,13 +101,105 @@ class _QuoteGeneratorState extends State<QuoteGenerator> {
               const SizedBox(
                 height: 30,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  generateQuote();
-                },
-                child: Text('Next Quote'),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      generateQuote();
+                    },
+                    child: Text('Next Quote'),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SequentialWidget()),
+                      );
+                    },
+                    child: Text('Switch to Ordered Mode'),
+                  ),
+                ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SequentialWidget extends StatefulWidget {
+  @override
+  _SequentialWidgetState createState() => _SequentialWidgetState();
+}
+
+class _SequentialWidgetState extends State<SequentialWidget> {
+  List weekdays = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+  ];
+
+  int index = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(weekdays[index]),
+        ElevatedButton(
+          onPressed: () {
+            if (index < weekdays.length - 1) {
+              setState(() {
+                index++;
+              });
+            } else {
+              setState(() {
+                index = 0;
+              });
+            }
+          },
+          child: Text("Next item"),
+        ),
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Switch to Random order')),
+      ],
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  const SecondRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Route'),
+      ),
+      body: Center(
+        child: Expanded(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Switch to Random order'),
+            ),
           ),
         ),
       ),
