@@ -87,51 +87,55 @@ class _QuoteGeneratorState extends State<QuoteGenerator> {
           title: Text('Tate Quote Generator'),
           backgroundColor: Colors.blue[200],
           centerTitle: true),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                  quote,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                quote,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      generateQuote();
-                    },
-                    child: Text('Next Quote'),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SequentialWidget()),
-                      );
-                    },
-                    child: Text('Switch to Ordered Mode'),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          const SizedBox(
+            height: 30,
+          ),
+          Container(
+            height: 20,
+            width: double.infinity,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton(
+                onPressed: () {
+                  generateQuote();
+                },
+                child: Text('Next Quote'),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 200.0),
+            child: Container(
+              height: 20,
+              width: double.infinity,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SequentialWidget()),
+                    );
+                  },
+                  child: Text('Switch to Ordered Mode'),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -154,33 +158,50 @@ class _SequentialWidgetState extends State<SequentialWidget> {
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          Text(
-            quoteList[index],
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              if (index < quoteList.length - 1) {
-                setState(() {
-                  index++;
-                });
-              } else {
-                setState(() {
-                  index = 0;
-                });
-              }
-            },
-            child: Text("Next item"),
-          ),
           Expanded(
             child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                quoteList[index],
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
+          ),
+          Container(
+            height: 20,
+            width: double.infinity,
+            child: Align(
               alignment: Alignment.bottomCenter,
-              child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('Switch to Random Mode')),
+              child: ElevatedButton(
+                onPressed: () {
+                  if (index < quoteList.length - 1) {
+                    setState(() {
+                      index++;
+                    });
+                  } else {
+                    setState(() {
+                      index = 0;
+                    });
+                  }
+                },
+                child: Text("Next Quote"),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 200.0),
+            child: Container(
+              height: 20,
+              width: double.infinity,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('Switch to Random Mode')),
+              ),
             ),
           ),
         ],
